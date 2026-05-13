@@ -1,0 +1,679 @@
+/* ============================================
+   TINY RIOT INC. — EMPLOYEE RESOURCES PORTAL
+   Internal Use Only | Classification: Internal
+   ============================================ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eeece6;
+    color: #1c1c1c;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── HEADER ── */
+#site-header {
+    background-color: #1c2d4f;
+    color: #fff;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 4px solid #7a1a1a;
+}
+
+.header-left .org-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.header-left .portal-label {
+    font-size: 10px;
+    color: #8fa0c0;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.header-right .user-info {
+    font-size: 11px;
+    color: #8fa0c0;
+    text-align: right;
+}
+
+.header-right .user-info strong {
+    color: #c8d4e8;
+    display: block;
+    font-size: 12px;
+}
+
+/* ── NAV ── */
+nav {
+    background-color: #243660;
+    border-bottom: 1px solid #1c2d4f;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px 18px;
+    color: #b0bdd8;
+    text-decoration: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-right: 1px solid #1c2d4f;
+    transition: background 0.15s, color 0.15s;
+}
+
+nav ul li:first-child a {
+    border-left: 1px solid #1c2d4f;
+}
+
+nav ul li a:hover {
+    background-color: #1c2d4f;
+    color: #fff;
+}
+
+nav ul li a.active {
+    background-color: #7a1a1a;
+    color: #fff;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+}
+
+.breadcrumb a {
+    color: #3a5ea8;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* ── MAIN ── */
+main {
+    flex: 1;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 28px 28px 48px;
+}
+
+/* ── PAGE TITLE ── */
+.page-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    color: #1c2d4f;
+    border-bottom: 2px solid #1c2d4f;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+}
+
+.page-meta {
+    font-size: 10px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+/* ── NOTICES ── */
+.notice {
+    background: #fffbe8;
+    border: 1px solid #c8a800;
+    border-left: 5px solid #c8a800;
+    padding: 10px 16px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.notice.alert {
+    background: #fff2f2;
+    border-color: #7a1a1a;
+    border-left-color: #7a1a1a;
+}
+
+.notice.info {
+    background: #f0f4ff;
+    border-color: #3a5ea8;
+    border-left-color: #3a5ea8;
+}
+
+.notice strong {
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* ── TWO COLUMN LAYOUT ── */
+.layout-two-col {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 28px;
+    margin-top: 24px;
+}
+
+/* ── SECTION TITLE ── */
+.section-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    color: #1c2d4f;
+    border-bottom: 1px solid #c8c4bb;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── CARDS / CONTENT BOXES ── */
+.content-box {
+    background: #fff;
+    border: 1px solid #c8c4bb;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.content-box + .content-box {
+    margin-top: 0;
+}
+
+/* ── STATUS INDICATORS ── */
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.status-row:last-child {
+    border-bottom: none;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-dot.green { background-color: #2a8a2a; }
+.status-dot.yellow { background-color: #c8a800; }
+.status-dot.red { background-color: #7a1a1a; }
+.status-dot.gray { background-color: #999; }
+
+.status-label {
+    color: #555;
+    font-size: 11px;
+}
+
+/* ── QUICK LINKS ── */
+.quick-links {
+    list-style: none;
+}
+
+.quick-links li {
+    border-bottom: 1px solid #e8e4de;
+    padding: 0;
+}
+
+.quick-links li:last-child {
+    border-bottom: none;
+}
+
+.quick-links li a {
+    display: block;
+    padding: 9px 0;
+    color: #1c2d4f;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.quick-links li a:hover {
+    color: #7a1a1a;
+    text-decoration: underline;
+}
+
+.quick-links li a::before {
+    content: "→ ";
+    color: #7a1a1a;
+}
+
+/* ── BULLETIN ITEMS ── */
+.bulletin-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #e0ddd6;
+    font-size: 13px;
+}
+
+.bulletin-item:last-child {
+    border-bottom: none;
+}
+
+.bulletin-date {
+    font-size: 10px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+}
+
+.bulletin-item p {
+    color: #333;
+    line-height: 1.5;
+}
+
+/* ── EMPLOYEE DIRECTORY ── */
+.directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.employee-card {
+    background: #fff;
+    border: 1px solid #c8c4bb;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.employee-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.employee-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+}
+
+.employee-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: #1c2d4f;
+    line-height: 1.2;
+}
+
+.employee-title {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+.employee-meta {
+    font-size: 12px;
+    color: #555;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3px 10px;
+}
+
+.meta-label {
+    color: #999;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    align-self: center;
+}
+
+.meta-value {
+    color: #333;
+    font-size: 12px;
+}
+
+.employee-note {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    line-height: 1.5;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 2px;
+}
+
+.badge.active { background: #e8f5e8; color: #2a6a2a; border: 1px solid #aadaaa; }
+.badge.unverified { background: #fff8e0; color: #7a6000; border: 1px solid #e8d070; }
+.badge.intermittent { background: #f0f0f0; color: #666; border: 1px solid #ccc; }
+.badge.probation { background: #fff0f0; color: #7a1a1a; border: 1px solid #e8aaaa; }
+
+/* ── INCIDENT LOG ── */
+.incident-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.incident-report {
+    background: #fff;
+    border: 1px solid #c8c4bb;
+    border-top: 3px solid #7a1a1a;
+}
+
+.incident-header {
+    background: #f8f6f2;
+    padding: 12px 18px;
+    border-bottom: 1px solid #e0ddd6;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.incident-number {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #7a1a1a;
+}
+
+.incident-meta-block {
+    font-size: 11px;
+    color: #888;
+}
+
+.incident-meta-block strong {
+    color: #555;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+.incident-status-block {
+    text-align: right;
+    font-size: 11px;
+}
+
+.incident-body {
+    padding: 16px 18px;
+}
+
+.incident-summary-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 6px;
+}
+
+.incident-summary {
+    font-size: 14px;
+    color: #1c1c1c;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.incident-footer {
+    font-size: 11px;
+    color: #aaa;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    font-style: italic;
+}
+
+/* ── JOB LISTINGS ── */
+.job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.job-listing {
+    background: #fff;
+    border: 1px solid #c8c4bb;
+    padding: 24px;
+}
+
+.job-tag-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.job-tag {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    background: #eeecea;
+    border: 1px solid #c8c4bb;
+    color: #555;
+}
+
+.job-title {
+    font-family: Georgia, serif;
+    font-size: 19px;
+    color: #1c2d4f;
+    margin-bottom: 6px;
+}
+
+.job-dept {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+}
+
+.job-section-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #7a1a1a;
+    font-weight: bold;
+    margin: 14px 0 6px;
+}
+
+.job-list-items {
+    list-style: none;
+    margin-bottom: 8px;
+}
+
+.job-list-items li {
+    font-size: 13px;
+    color: #333;
+    padding: 3px 0;
+    padding-left: 16px;
+    position: relative;
+}
+
+.job-list-items li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #7a1a1a;
+}
+
+.job-apply {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #e0ddd6;
+    font-size: 13px;
+    color: #555;
+}
+
+.job-apply strong {
+    color: #1c2d4f;
+}
+
+/* ── EMPLOYEE HANDBOOK ── */
+.handbook-intro {
+    background: #fff;
+    border: 1px solid #c8c4bb;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+}
+
+.handbook-section {
+    background: #fff;
+    border: 1px solid #c8c4bb;
+    margin-bottom: 4px;
+}
+
+.handbook-section-header {
+    background: #f8f6f2;
+    padding: 12px 20px;
+    border-bottom: 1px solid #e0ddd6;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: #1c2d4f;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.handbook-rule {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0ede8;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.handbook-rule:last-child {
+    border-bottom: none;
+}
+
+.rule-number {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    color: #c8c4bb;
+    font-weight: bold;
+    padding-top: 1px;
+}
+
+.rule-text {
+    font-size: 14px;
+    color: #222;
+    line-height: 1.6;
+    padding-top: 2px;
+}
+
+.rule-note {
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* ── QUIZ / ASSESSMENT PAGE ── */
+.maintenance-box {
+    background: #fff;
+    border: 1px solid #c8c4bb;
+    border-top: 4px solid #7a1a1a;
+    padding: 48px;
+    text-align: center;
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.maintenance-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+    color: #c8c4bb;
+}
+
+.maintenance-title {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    color: #1c2d4f;
+    margin-bottom: 12px;
+}
+
+.maintenance-body {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.maintenance-ref {
+    font-size: 10px;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── FOOTER ── */
+footer {
+    background-color: #1c2d4f;
+    color: #667;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    border-top: 2px solid #7a1a1a;
+    margin-top: auto;
+}
+
+footer span {
+    margin: 0 12px;
+}
+
+/* ── UTILITIES ── */
+.text-muted { color: #888; }
+.text-small { font-size: 11px; }
+.text-upper { text-transform: uppercase; letter-spacing: 0.8px; }
+.mt-4 { margin-top: 4px; }
+.mt-8 { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
