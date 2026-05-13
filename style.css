@@ -669,6 +669,33 @@ footer span {
     margin: 0 12px;
 }
 
+.footer-social {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #2a3d5f;
+}
+
+.footer-social-label {
+    color: #556;
+    margin-right: 4px;
+    font-style: italic;
+}
+
+.footer-social a {
+    color: #8fa0c0;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-social a:hover {
+    color: #b0c0d8;
+    text-decoration: underline;
+}
+
+.footer-social span {
+    margin: 0 2px;
+}
+
 /* ── UTILITIES ── */
 .text-muted { color: #888; }
 .text-small { font-size: 11px; }
