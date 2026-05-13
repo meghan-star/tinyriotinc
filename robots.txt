@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tinyriotinc.com/sitemap.xml
