@@ -39,6 +39,12 @@ body {
     text-transform: uppercase;
 }
 
+.header-logo {
+    height: 62px;
+    width: auto;
+    display: block;
+}
+
 .header-left .portal-label {
     font-size: 10px;
     color: #8fa0c0;
