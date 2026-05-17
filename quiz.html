@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assessment Portal — Tiny Riot Inc.</title>
-    <meta name="description" content="The Tiny Riot Inc. Cryptid Compatibility Assessment is temporarily offline. Grey is reviewing the methodology. Mothman has already seen the results. He has not shared them.">
+    <meta name="description" content="Determine which Tiny Riot Inc. employee best represents your operational profile. This is not a personality test. It is a compatibility assessment. There is a difference.">
     <meta property="og:title" content="Assessment Portal — Tiny Riot Inc.">
-    <meta property="og:description" content="The Tiny Riot Inc. Cryptid Compatibility Assessment is temporarily offline. Grey is reviewing the methodology. Mothman has already seen the results. He has not shared them.">
+    <meta property="og:description" content="Determine which Tiny Riot Inc. employee best represents your operational profile. This is not a personality test. It is a compatibility assessment.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tinyriotinc.com/quiz.html">
     <meta property="og:site_name" content="Tiny Riot Inc.">
@@ -24,6 +24,275 @@
         gtag('js', new Date());
         gtag('config', 'G-ZZE53SN540');
     </script>
+
+    <style>
+        /* ── Quiz Status Notice ── */
+        .quiz-status-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+            color: #555;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #3a6b3a;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ── Intro Section ── */
+        .quiz-intro-box {
+            background: #fffbe8;
+            border: 1px solid #c8a800;
+            border-left: 5px solid #c8a800;
+            padding: 28px 32px;
+            margin: 20px 0;
+        }
+        .quiz-intro-box p {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+        .quiz-intro-box p:last-of-type {
+            margin-bottom: 0;
+        }
+        .quiz-intro-fine {
+            margin-top: 16px;
+            font-size: 12px !important;
+            color: #888 !important;
+        }
+        .quiz-begin-btn {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 12px 28px;
+            background-color: #1c2d4f;
+            color: #fff;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+        .quiz-begin-btn:hover {
+            background-color: #2a4070;
+        }
+
+        /* ── Progress ── */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+            color: #888;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .quiz-progress-track {
+            width: 100%;
+            height: 3px;
+            background-color: #e0d9c8;
+            margin-bottom: 28px;
+        }
+        .quiz-progress-fill {
+            height: 3px;
+            background-color: #1c2d4f;
+            transition: width 0.4s ease;
+        }
+
+        /* ── Question ── */
+        .quiz-container {
+            margin: 20px 0;
+        }
+        .quiz-question-text {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 17px;
+            font-weight: bold;
+            color: #1c2d4f;
+            margin-bottom: 22px;
+            line-height: 1.5;
+        }
+
+        /* ── Options ── */
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 14px 18px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-left: 4px solid #ddd;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            color: #333;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            line-height: 1.5;
+            box-sizing: border-box;
+        }
+        .quiz-option:hover:not(:disabled) {
+            background: #fffbe8;
+            border-color: #c8a800;
+            border-left-color: #c8a800;
+            color: #1c2d4f;
+        }
+        .quiz-option.selected {
+            background: #eef2fa;
+            border-color: #1c2d4f;
+            border-left-color: #1c2d4f;
+            color: #1c2d4f;
+            font-weight: bold;
+        }
+        .quiz-option:disabled {
+            cursor: default;
+        }
+        .quiz-option.faded {
+            opacity: 0.4;
+        }
+
+        /* ── Result ── */
+        .result-container {
+            margin: 20px 0;
+        }
+        .result-header-bar {
+            background: #1c2d4f;
+            color: #fff;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .result-card {
+            border: 1px solid #c8a800;
+            border-top: none;
+            padding: 32px;
+            background: #fffbe8;
+        }
+        .result-employee-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .result-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 22px;
+            font-weight: bold;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .result-employee-info .result-name {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 22px;
+            font-weight: bold;
+            color: #1c2d4f;
+            margin-bottom: 4px;
+        }
+        .result-employee-info .result-title {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 2px;
+        }
+        .result-employee-info .result-dept {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .result-divider {
+            border: none;
+            border-top: 1px solid #c8a800;
+            margin: 20px 0;
+        }
+        .result-body {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.8;
+        }
+        .result-actions {
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .result-btn-primary {
+            display: inline-block;
+            padding: 11px 22px;
+            background-color: #1c2d4f;
+            color: #fff;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.15s ease;
+        }
+        .result-btn-primary:hover {
+            background-color: #2a4070;
+        }
+        .result-btn-secondary {
+            display: inline-block;
+            padding: 11px 22px;
+            background-color: transparent;
+            color: #1c2d4f;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid #1c2d4f;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .result-btn-secondary:hover {
+            background-color: #1c2d4f;
+            color: #fff;
+        }
+        .result-classification {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 20px;
+            border-top: 1px solid #e0d9c8;
+            padding-top: 12px;
+        }
+    </style>
 </head>
 <body>
 
@@ -56,19 +325,39 @@
     <div class="breadcrumb"><a href="index.html">Home</a> / Assessment Portal</div>
 
     <h1 class="page-title">Assessment Portal</h1>
-    <p class="page-meta">Document ID: HR-ASSESS-001 &nbsp;|&nbsp; Classification: Internal &nbsp;|&nbsp; Status: Offline</p>
+    <p class="page-meta">Document ID: HR-ASSESS-001 &nbsp;|&nbsp; Classification: Internal &nbsp;|&nbsp; Status: <span style="color:#3a6b3a;font-weight:bold;">ONLINE</span></p>
 
-    <div class="maintenance-box">
-        <div class="maintenance-icon">⚠</div>
-        <div class="maintenance-title">System Temporarily Unavailable</div>
-        <div class="maintenance-body">
-            <p>The Tiny Riot Inc. Cryptid Compatibility Assessment is currently undergoing scheduled maintenance.</p>
-            <p style="margin-top:12px;">The assessment system will return when HR has determined that the results can be delivered responsibly. Grey is reviewing the methodology. Mothman has already seen the results. He has not shared them. This is standard.</p>
-            <p style="margin-top:12px;">Upon restoration, this portal will allow you to determine which Tiny Riot Inc. employee best represents your operational profile. This is not a personality test. It is a compatibility assessment. There is a difference. HR will not be explaining the difference.</p>
-            <p style="margin-top:16px;font-size:12px;color:#888;">If you believe you are already a Kraken, you are probably not a Kraken.<br>If you have not considered whether you might be a Rake, consider it.</p>
+    <!-- INTRO -->
+    <div id="quiz-intro">
+        <div class="quiz-status-bar">
+            <span class="status-dot"></span>
+            <span>Assessment System: Online &nbsp;·&nbsp; 7 Questions &nbsp;·&nbsp; HR-Reviewed Methodology</span>
         </div>
-        <div class="maintenance-ref">Reference: HR-ASSESS-001 &nbsp;|&nbsp; Expected Restoration: TBD &nbsp;|&nbsp; Contact: HR (before 3pm)</div>
+
+        <div class="quiz-intro-box">
+            <p>The Tiny Riot Inc. Cryptid Compatibility Assessment is available.</p>
+            <p>HR has reviewed the methodology and determined the results can be delivered responsibly. Grey also reviewed the methodology. They reached different conclusions. The assessment is proceeding anyway.</p>
+            <p>Upon completion, this portal will determine which Tiny Riot Inc. employee best represents your operational profile. Answer honestly. The assessment can tell when you're performing.</p>
+            <p class="quiz-intro-fine">This is not a personality test. It is a compatibility assessment. There is a difference. HR will not be explaining the difference. &nbsp;|&nbsp; If you believe you are already a Kraken, you are probably not a Kraken.</p>
+            <button class="quiz-begin-btn" onclick="startQuiz()">Begin Assessment</button>
+        </div>
     </div>
+
+    <!-- QUIZ -->
+    <div id="quiz-container" class="quiz-container" style="display:none;">
+        <div class="quiz-header">
+            <span id="q-counter">Question 1 of 7</span>
+            <span id="q-ref">HR-ASSESS-001</span>
+        </div>
+        <div class="quiz-progress-track">
+            <div class="quiz-progress-fill" id="quiz-progress-fill" style="width:0%"></div>
+        </div>
+        <div class="quiz-question-text" id="quiz-question-text"></div>
+        <div class="quiz-options" id="quiz-options"></div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result-container" class="result-container" style="display:none;"></div>
 
 </main>
 
@@ -89,6 +378,311 @@
         <a href="https://pin.it/f3776Z0mt" target="_blank" rel="noopener">Pinterest</a>
     </div>
 </footer>
+
+<script>
+    /* ── Character Data ── */
+    const characters = {
+        bigfoot: {
+            name: 'Bigfoot',
+            title: 'Remote IT Specialist',
+            dept: 'Field Division',
+            initials: 'BF',
+            color: '#4a6741',
+            result: 'You keep things running through methods nobody can explain and nobody thinks to question. Remote is not a preference — it is your natural operating environment. You solved the problem before anyone knew there was a problem. There are no instructions because instructions imply you won\'t always be there. You will always be there. The Wi-Fi is still working. That was you.'
+        },
+        mothman: {
+            name: 'Mothman',
+            title: 'Disaster Prediction Specialist',
+            dept: 'Strategic Foresight',
+            initials: 'MM',
+            color: '#3d3450',
+            result: 'You already knew how this was going to go. You watched it happen and said nothing — not because you don\'t care, but because being right has a specific timing, and you understand that. The quiet is intentional. The stillness is a choice. They\'ll understand what you knew eventually. You are patient enough to wait.'
+        },
+        nessie: {
+            name: 'The Loch Ness Monster',
+            title: 'Head of Long View Strategy',
+            dept: 'Strategy',
+            initials: 'NM',
+            color: '#1e4d6b',
+            result: 'You have been here longer than the org chart suggests is possible. The long view is not just your working style — it is the only scale that genuinely makes sense to you. Meetings come and go. Strategies pivot. Empires rise and fall. You remain, patient and present, and occasionally surface just to remind everyone you are still watching and paying attention.'
+        },
+        grey: {
+            name: 'Grey',
+            title: 'Senior Researcher',
+            dept: 'Research Division',
+            initials: 'GR',
+            color: '#5a6a7a',
+            result: 'You have been watching. You have been taking notes. The notes are detailed, organized, and will make complete sense to you when you need to reference them, which you will. You care more than you show and show considerably less than you feel. People sometimes find this unsettling. The records are comprehensive. Please do not read the records.'
+        },
+        jackalope: {
+            name: 'Jackalope',
+            title: 'Director of Unplanned Outcomes',
+            dept: 'Unplanned Outcomes',
+            initials: 'JL',
+            color: '#7a5c32',
+            result: 'Your expense reports are filed correctly. That is the most traceable thing about your impact. You consistently end up at the center of situations that resolve in ways nobody planned through mechanisms nobody can fully document. The outcome was not unplanned — it just was not planned by anyone else. You usually already knew. This is normal. This is fine.'
+        },
+        chupacabra: {
+            name: 'Chupacabra',
+            title: 'People Protector',
+            dept: 'Human Resources',
+            initials: 'CC',
+            color: '#3a6b3a',
+            result: 'You are the person people call when something wrong is happening and nobody else is saying anything about it. You are also the reason a lot of things changed around here. You advocate loudly and with receipts. You don\'t let things slide when they matter. This is occasionally inconvenient for other people. That is not your problem. It should have been addressed already.'
+        },
+        rake: {
+            name: 'The Rake',
+            title: 'Contract Analyst',
+            dept: 'Legal & Compliance',
+            initials: 'RK',
+            color: '#2d2d2d',
+            result: 'You have read every policy, every clause, every terms and conditions document that everyone else clicks through without reading. You send your findings when you have findings. The timestamp reflects when you work — it is not a sign of distress. You are checking on things. This is a form of care. Reply when you can. If you receive a second message, reply immediately.'
+        },
+        jerseydevil: {
+            name: 'Jersey Devil',
+            title: 'Customer (Mis)Happiness Manager',
+            dept: 'External Affairs',
+            initials: 'JD',
+            color: '#5c3030',
+            result: 'There is a full draft version of every message you have ever sent. You have been working on the gap between how you feel and what you say for a long time. Progress is real and it shows. People see you as measured and professional. You know what that takes. You also know it is worth it. Go to the Pine Barrens if you need to. You always come back professional.'
+        },
+        kraken: {
+            name: 'Kraken',
+            title: 'Union Rep & Elder Advisor',
+            dept: 'Labor Relations',
+            initials: 'KR',
+            color: '#1a3a5c',
+            result: 'You know the contract. You have always known the contract. You have been the organizing force in the room since before this organization had a name for what you do. When you call a meeting, people show up — that is not an accident, that is the result of being right, consistently, for a very long time. You are the power in the room. The meeting is already called.'
+        }
+    };
+
+    /* ── Questions ── */
+    const questions = [
+        {
+            text: "A meeting invite lands for something that could have been an email. You:",
+            options: [
+                { text: "Accept it, attend quietly, and fix the actual problem without mentioning it.", char: "bigfoot" },
+                { text: "Accept it. You already know how it ends.", char: "mothman" },
+                { text: "Accept the invite. You will not be attending. Your absence will be noted.", char: "nessie" },
+                { text: "Attend and take notes on everything, including what wasn't said aloud.", char: "grey" },
+                { text: "Accept it. By the end of the meeting, it is somehow about something else entirely.", char: "jackalope" },
+                { text: "Message the organizer asking why this couldn't have been an email.", char: "chupacabra" },
+                { text: "Read the entire calendar chain at 3am. Find four procedural violations.", char: "rake" },
+                { text: "Show up five minutes late, perfectly prepared, professionally composed.", char: "jerseydevil" },
+                { text: "Paste the meeting frequency policy into the invite notes. This is the fourth time.", char: "kraken" }
+            ]
+        },
+        {
+            text: "Your team hits a crisis the night before a major deadline. You:",
+            options: [
+                { text: "Already handled it. The fix went in before anyone sent the alert.", char: "bigfoot" },
+                { text: "Knew this was coming. You have known for weeks. You are not surprised.", char: "mothman" },
+                { text: "Patient. You have seen worse. It will resolve itself, or it won't.", char: "nessie" },
+                { text: "You've been tracking this probability for months. You update your documentation.", char: "grey" },
+                { text: "Your involvement makes it more complicated and then, somehow, fine.", char: "jackalope" },
+                { text: "Escalate immediately on behalf of the team. Someone should have flagged this sooner.", char: "chupacabra" },
+                { text: "The liability exposure is in the thread. Sent at 2:47am. Check the thread.", char: "rake" },
+                { text: "Write a detailed internal postmortem. Send one calm sentence to the group.", char: "jerseydevil" },
+                { text: "Call an emergency meeting. Attendance is not optional.", char: "kraken" }
+            ]
+        },
+        {
+            text: "You disagree with a decision made above your pay grade. You:",
+            options: [
+                { text: "Work around it through means that are effective and undocumented.", char: "bigfoot" },
+                { text: "Say nothing. You've already seen how this plays out.", char: "mothman" },
+                { text: "Note it. Take the long view. This too shall pass.", char: "nessie" },
+                { text: "Document your position carefully. Update the record.", char: "grey" },
+                { text: "Your disagreement resolves through circumstances nobody planned or can explain.", char: "jackalope" },
+                { text: "File a formal objection. On record. In writing.", char: "chupacabra" },
+                { text: "Find every relevant clause and email them at 3am with no additional context.", char: "rake" },
+                { text: "Feel it deeply. Respond professionally. Walk it off later.", char: "jerseydevil" },
+                { text: "Call a meeting. The decision is about to be revisited.", char: "kraken" }
+            ]
+        },
+        {
+            text: "Someone on your team is being treated unfairly. You:",
+            options: [
+                { text: "Quietly make sure it can't escalate through your areas of control.", char: "bigfoot" },
+                { text: "Watch closely. Document it. This is going to matter soon.", char: "mothman" },
+                { text: "Have seen this pattern before. You are patient and watching.", char: "nessie" },
+                { text: "Record everything carefully. The data will matter.", char: "grey" },
+                { text: "Insert yourself in a way that accidentally creates leverage nobody expected.", char: "jackalope" },
+                { text: "Escalate with evidence. Immediately.", char: "chupacabra" },
+                { text: "Pull up the policy. It's in the email you sent at 3am. Still applies.", char: "rake" },
+                { text: "Feel it acutely. Handle it with more composure than the situation deserves.", char: "jerseydevil" },
+                { text: "This is exactly what the contract covers. Everyone is about to find out.", char: "kraken" }
+            ]
+        },
+        {
+            text: "How do people know when you're upset?",
+            options: [
+                { text: "They don't. The systems just start behaving strangely.", char: "bigfoot" },
+                { text: "They don't — until the thing happens and they understand the silence retroactively.", char: "mothman" },
+                { text: "They feel an unease they can't name.", char: "nessie" },
+                { text: "The notes get more precise.", char: "grey" },
+                { text: "Things go sideways in ways that are technically not your fault.", char: "jackalope" },
+                { text: "They know immediately and explicitly. That's the point.", char: "chupacabra" },
+                { text: "The 3am messages arrive faster and with more citations.", char: "rake" },
+                { text: "They barely notice. That's what you've been working toward.", char: "jerseydevil" },
+                { text: "A meeting gets called. Nobody's sure why yet.", char: "kraken" }
+            ]
+        },
+        {
+            text: "Your working style, in your own words:",
+            options: [
+                { text: "Remote. Effective. Undocumented.", char: "bigfoot" },
+                { text: "Quiet. Correct. Slightly ahead of events.", char: "mothman" },
+                { text: "Strategic. Patient. Long-term.", char: "nessie" },
+                { text: "Methodical. Thorough. Possibly unsettling.", char: "grey" },
+                { text: "Chaotic adjacent. Usually correct. Hard to explain.", char: "jackalope" },
+                { text: "Vocal. Principled. Working on the delivery.", char: "chupacabra" },
+                { text: "Meticulous. Nocturnal. Fully briefed.", char: "rake" },
+                { text: "High-effort internally. Low-drama externally.", char: "jerseydevil" },
+                { text: "Organized. Authoritative. Has always known the contract.", char: "kraken" }
+            ]
+        },
+        {
+            text: "You've been at Tiny Riot for a long time. That means:",
+            options: [
+                { text: "You've kept things running through methods nobody can explain or replicate.", char: "bigfoot" },
+                { text: "You've been watching long enough to see the patterns clearly.", char: "mothman" },
+                { text: "A long time is relative.", char: "nessie" },
+                { text: "You have extensive documentation.", char: "grey" },
+                { text: "You have a documented history of unplanned outcomes.", char: "jackalope" },
+                { text: "You've filed more formal complaints than anyone. All justified.", char: "chupacabra" },
+                { text: "You've read the entire policy archive. Multiple times. Recommended revisions.", char: "rake" },
+                { text: "You've made measurable progress on the gap between how you feel and what you send.", char: "jerseydevil" },
+                { text: "You were here before the policy was written. You helped write the policy.", char: "kraken" }
+            ]
+        }
+    ];
+
+    /* ── State ── */
+    let scores = {};
+    let currentQ = 0;
+
+    function initScores() {
+        Object.keys(characters).forEach(k => scores[k] = 0);
+    }
+
+    function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    /* ── Quiz Flow ── */
+    function startQuiz() {
+        initScores();
+        currentQ = 0;
+        document.getElementById('quiz-intro').style.display = 'none';
+        document.getElementById('quiz-container').style.display = 'block';
+        renderQuestion(currentQ);
+    }
+
+    function renderQuestion(index) {
+        const q = questions[index];
+        const total = questions.length;
+
+        document.getElementById('q-counter').textContent = 'Question ' + (index + 1) + ' of ' + total;
+        document.getElementById('quiz-question-text').textContent = q.text;
+        document.getElementById('quiz-progress-fill').style.width = ((index / total) * 100) + '%';
+
+        const container = document.getElementById('quiz-options');
+        container.innerHTML = '';
+
+        const shuffled = shuffle(q.options);
+        shuffled.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-option';
+            btn.textContent = opt.text;
+            btn.addEventListener('click', function() {
+                selectAnswer(opt.char, btn, container);
+            });
+            container.appendChild(btn);
+        });
+    }
+
+    function selectAnswer(char, selectedBtn, container) {
+        // Lock all buttons
+        const allBtns = container.querySelectorAll('.quiz-option');
+        allBtns.forEach(b => {
+            b.disabled = true;
+            if (b !== selectedBtn) b.classList.add('faded');
+        });
+        selectedBtn.classList.add('selected');
+
+        scores[char]++;
+
+        setTimeout(() => {
+            currentQ++;
+            if (currentQ < questions.length) {
+                renderQuestion(currentQ);
+            } else {
+                showResult();
+            }
+        }, 480);
+    }
+
+    /* ── Result ── */
+    function showResult() {
+        document.getElementById('quiz-container').style.display = 'none';
+
+        // Find winner (highest score)
+        let maxScore = -1;
+        let winner = 'bigfoot';
+        Object.entries(scores).forEach(([k, v]) => {
+            if (v > maxScore) { maxScore = v; winner = k; }
+        });
+
+        const char = characters[winner];
+        const now = new Date();
+        const timestamp = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+
+        const container = document.getElementById('result-container');
+        container.innerHTML = `
+            <div class="result-header-bar">
+                <span>Assessment Complete &nbsp;·&nbsp; Classification Filed</span>
+                <span>${timestamp}</span>
+            </div>
+            <div class="result-card">
+                <div class="result-employee-header">
+                    <div class="result-avatar" style="background-color:${char.color};">${char.initials}</div>
+                    <div class="result-employee-info">
+                        <div class="result-name">${char.name}</div>
+                        <div class="result-title">${char.title}</div>
+                        <div class="result-dept">${char.dept}</div>
+                    </div>
+                </div>
+                <hr class="result-divider">
+                <div class="result-body">${char.result}</div>
+                <div class="result-actions">
+                    <a href="directory.html" class="result-btn-primary">View Employee Profile</a>
+                    <button class="result-btn-secondary" onclick="retakeQuiz()">Retake Assessment</button>
+                </div>
+                <div class="result-classification">
+                    Classification: HR-ASSESS-001 &nbsp;·&nbsp; Result: ${char.name.toUpperCase()} &nbsp;·&nbsp; Score: ${maxScore}/${questions.length} &nbsp;·&nbsp; This result has been added to your file.
+                </div>
+            </div>
+        `;
+        container.style.display = 'block';
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function retakeQuiz() {
+        document.getElementById('result-container').style.display = 'none';
+        document.getElementById('result-container').innerHTML = '';
+        initScores();
+        currentQ = 0;
+        document.getElementById('quiz-container').style.display = 'block';
+        renderQuestion(0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
 
 </body>
 </html>
