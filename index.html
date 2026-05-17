@@ -48,6 +48,90 @@
     </script>
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
     <style>
+        /* ── START HERE CTA ── */
+        .cta-section {
+            margin: 28px 0 32px;
+            border: 1px solid #c8c4bb;
+            border-top: 3px solid #1c2d4f;
+            background: #f9f7f2;
+            padding: 20px 24px 24px;
+        }
+        .cta-section-header {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .cta-section-label {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 13px;
+            font-weight: bold;
+            color: #1c2d4f;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        .cta-section-sub {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11px;
+            color: #777;
+        }
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        @media (max-width: 700px) {
+            .cta-grid { grid-template-columns: 1fr; }
+        }
+        .cta-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-top: 3px solid #c8a800;
+            padding: 18px 18px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .cta-card-tag {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 10px;
+            color: #999;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .cta-card-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #1c2d4f;
+            margin-bottom: 10px;
+        }
+        .cta-card-body {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+            color: #555;
+            line-height: 1.7;
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+        .cta-card-btn {
+            display: inline-block;
+            padding: 9px 16px;
+            background-color: #1c2d4f;
+            color: #fff;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.15s ease;
+            align-self: flex-start;
+        }
+        .cta-card-btn:hover { background-color: #2a4070; }
+
         /* ── BREVO FORM OVERRIDES — Tiny Riot aesthetic ── */
         .clearance-section {
             margin-top: 36px;
@@ -210,7 +294,39 @@
     </div>
 
     <div class="notice info">
-        <strong>SYSTEM NOTICE:</strong> The Assessment Portal is currently undergoing scheduled maintenance. The assessment portal became self-aware briefly. Situation contained.
+        <strong>SYSTEM NOTICE:</strong> The Assessment Portal is now online. HR has reviewed the methodology. Grey also reviewed the methodology. They reached different conclusions. The assessment is proceeding anyway.
+    </div>
+
+    <!-- ── START HERE CTA ── -->
+    <div class="cta-section">
+        <div class="cta-section-header">
+            <span class="cta-section-label">New to the portal?</span>
+            <span class="cta-section-sub">The following resources have been authorized for general distribution. We know you're here. This is fine.</span>
+        </div>
+        <div class="cta-grid">
+
+            <div class="cta-card">
+                <div class="cta-card-tag">Assessment Portal · Form HR-ASSESS-001</div>
+                <div class="cta-card-title">Take the Assessment</div>
+                <div class="cta-card-body">Determine which Tiny Riot Inc. employee best represents your operational profile. This is not a personality test. HR will not be explaining the difference.</div>
+                <a href="quiz.html" class="cta-card-btn">Begin Assessment &rarr;</a>
+            </div>
+
+            <div class="cta-card">
+                <div class="cta-card-tag">Employee Directory · Doc HR-DIR-001</div>
+                <div class="cta-card-title">Meet the Team</div>
+                <div class="cta-card-body">Review the verified personnel on file. Nine employees. Several of them are aware of your arrival. Nessie has been notified. Her silence is sufficient acknowledgment.</div>
+                <a href="directory.html" class="cta-card-btn">View Directory &rarr;</a>
+            </div>
+
+            <div class="cta-card">
+                <div class="cta-card-tag">Distribution List · Form TRI-7</div>
+                <div class="cta-card-title">Request Clearance</div>
+                <div class="cta-card-body">Join the authorized distribution list. Incident alerts. Handbook updates. System notices from The Rake at 3am. Your request will be reviewed. Probably.</div>
+                <a href="#clearance-form" class="cta-card-btn">Submit Request &rarr;</a>
+            </div>
+
+        </div>
     </div>
 
     <div class="layout-two-col">
@@ -338,7 +454,7 @@
     </div>
 
     <!-- ── REQUEST CLEARANCE — Email Signup ── -->
-    <div class="clearance-section">
+    <div class="clearance-section" id="clearance-form">
         <div class="section-title">Request Clearance</div>
         <div class="page-meta">Distribution List · Authorized Personnel Only · Form TRI-7</div>
         <div class="sib-form" style="text-align: center; background-color: transparent;">
