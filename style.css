@@ -662,7 +662,7 @@ main {
 /* ── FOOTER ── */
 footer {
     background-color: #1c2d4f;
-    color: #667;
+    color: #a0b4cc;
     text-align: center;
     padding: 14px 20px;
     font-size: 11px;
@@ -682,7 +682,7 @@ footer span {
 }
 
 .footer-social-label {
-    color: #556;
+    color: #8090a8;
     margin-right: 4px;
     font-style: italic;
 }
