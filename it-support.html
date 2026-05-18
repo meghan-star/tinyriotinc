@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Support — Tiny Riot Inc.</title>
+    <meta name="description" content="Tiny Riot Inc. IT Support Portal. Please stand by.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZE53SN540"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ZZE53SN540');
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #008080;
+            min-height: 100vh;
+            font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+            cursor: default;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        /* ── Desktop ── */
+        .desktop {
+            width: 100%;
+            height: calc(100vh - 28px);
+            position: relative;
+        }
+
+        /* ── Taskbar ── */
+        .taskbar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: 28px;
+            background: #d4d0c8;
+            border-top: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+            gap: 4px;
+            z-index: 9999;
+        }
+        .start-btn {
+            background: #d4d0c8;
+            border: 2px solid;
+            border-top-color: #fff;
+            border-left-color: #fff;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            padding: 1px 8px 1px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            height: 22px;
+        }
+        .start-btn:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #fff;
+            border-bottom-color: #fff;
+        }
+        .taskbar-item {
+            background: #d4d0c8;
+            border: 2px solid;
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #fff;
+            border-bottom-color: #fff;
+            padding: 1px 10px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            height: 22px;
+            min-width: 160px;
+        }
+        .taskbar-clock {
+            margin-left: auto;
+            border: 2px solid;
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #fff;
+            border-bottom-color: #fff;
+            padding: 1px 10px;
+            font-size: 11px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ── Error Dialog ── */
+        .error-dialog {
+            position: absolute;
+            background: #d4d0c8;
+            border: 2px solid;
+            border-top-color: #fff;
+            border-left-color: #fff;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            box-shadow: 2px 2px 0 #000;
+            width: 380px;
+            max-width: calc(100vw - 32px);
+            opacity: 0;
+            transition: opacity 0.12s ease;
+        }
+        .error-dialog.visible { opacity: 1; }
+
+        /* Title bar */
+        .title-bar {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: #fff;
+            padding: 3px 4px 3px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .title-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .title-bar-controls { display: flex; gap: 2px; }
+        .tb-btn {
+            background: #d4d0c8;
+            border: 2px solid;
+            border-top-color: #fff;
+            border-left-color: #fff;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            width: 16px;
+            height: 14px;
+            font-size: 9px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .tb-btn:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        /* Body */
+        .dialog-body {
+            padding: 16px 18px 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .error-icon { flex-shrink: 0; margin-top: 2px; }
+        .dialog-text { font-size: 11px; line-height: 1.65; color: #000; }
+
+        /* Divider */
+        .dialog-divider {
+            margin: 0 4px;
+            border: none;
+            border-top: 1px solid #808080;
+            border-bottom: 1px solid #fff;
+        }
+
+        /* Footer */
+        .dialog-footer {
+            padding: 10px 18px 14px;
+            display: flex;
+            justify-content: center;
+        }
+        .ok-btn {
+            background: #d4d0c8;
+            border: 2px solid;
+            border-top-color: #fff;
+            border-left-color: #fff;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            padding: 3px 0;
+            width: 90px;
+            font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+            font-size: 11px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .ok-btn:focus {
+            outline: 1px dotted #000;
+            outline-offset: -4px;
+        }
+        .ok-btn:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #fff;
+            border-bottom-color: #fff;
+            padding-top: 4px;
+            padding-bottom: 2px;
+        }
+
+        /* Back link — subtle, bottom corner */
+        .back-link {
+            position: fixed;
+            bottom: 36px;
+            right: 12px;
+            font-size: 10px;
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+        }
+        .back-link:hover { color: rgba(255,255,255,0.7); }
+    </style>
+</head>
+<body>
+
+<div class="desktop" id="desktop">
+    <div class="error-dialog" id="error-dialog">
+        <div class="title-bar" id="title-bar">
+            <div class="title-bar-left">
+                <span id="title-icon">⚠️</span>
+                <span id="title-text">System Error</span>
+            </div>
+            <div class="title-bar-controls">
+                <button class="tb-btn" onclick="dismiss()" title="Minimize">_</button>
+                <button class="tb-btn" onclick="dismiss()" title="Maximize">▢</button>
+                <button class="tb-btn" onclick="dismiss()" title="Close" style="font-size:10px;">✕</button>
+            </div>
+        </div>
+        <div class="dialog-body">
+            <div class="error-icon" id="error-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="15" fill="#CC0000"/>
+                    <circle cx="16" cy="16" r="15" fill="url(#grad)"/>
+                    <path d="M10 10 L22 22" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M22 10 L10 22" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+                    <defs>
+                        <radialGradient id="grad" cx="35%" cy="30%" r="70%">
+                            <stop offset="0%" stop-color="#ff4444"/>
+                            <stop offset="100%" stop-color="#880000"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="dialog-text" id="dialog-text"></div>
+        </div>
+        <hr class="dialog-divider">
+        <div class="dialog-footer">
+            <button class="ok-btn" id="ok-btn" onclick="dismiss()">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- Taskbar -->
+<div class="taskbar">
+    <button class="start-btn" onclick="dismiss()">
+        <strong>Start</strong>
+    </button>
+    <div class="taskbar-item">
+        <span>⚠️</span>
+        <span id="taskbar-title">Tiny Riot Inc. — System Error</span>
+    </div>
+    <div class="taskbar-clock" id="taskbar-clock">12:00 PM</div>
+</div>
+
+<a href="index.html" class="back-link">← return to portal</a>
+
+<script>
+    const errors = [
+        {
+            title: "System Error",
+            icon: "error",
+            message: "Bigfoot has resolved this issue. No documentation is available. IT cannot replicate the fix. Please do not attempt to replicate the fix.",
+            button: "OK"
+        },
+        {
+            title: "Warning",
+            icon: "warn",
+            message: "Mothman predicted this error. His report was filed on Tuesday. The report was not read. This is now noted in the record.",
+            button: "Acknowledged"
+        },
+        {
+            title: "Process Interrupted",
+            icon: "error",
+            message: "This action requires approval from Nessie. Nessie has accepted the approval request. Nessie will not be approving. Her silence has been entered into the record.",
+            button: "OK"
+        },
+        {
+            title: "Access Denied",
+            icon: "info",
+            message: "Grey is currently documenting this session. The notes are detailed and organized. You are not permitted to read the notes. This is normal. Do not make it weird.",
+            button: "Understood"
+        },
+        {
+            title: "Unplanned Outcome",
+            icon: "warn",
+            message: "Jackalope is involved in this process. Outcomes may not be as planned. Expense reports have been filed correctly. This is the most traceable thing.",
+            button: "Fine."
+        },
+        {
+            title: "HR Notification",
+            icon: "info",
+            message: "Chupacabra has filed a formal complaint about this error. The error has been reviewed by HR. HR has determined the error was correct. The error has been promoted.",
+            button: "OK"
+        },
+        {
+            title: "Security Notice — 3:14 AM",
+            icon: "error",
+            message: "The Rake has identified 4 violations in this session. A full summary has been sent to your inbox. The message was sent at 3:14am. Please reply when you can. If you receive a second message, reply immediately.",
+            button: "Noted"
+        },
+        {
+            title: "Process Interrupted",
+            icon: "warn",
+            message: "Jersey Devil has drafted 14 responses to this error. None have been sent. He has gone to the Pine Barrens. The error will be addressed professionally upon his return.",
+            button: "OK"
+        },
+        {
+            title: "Mandatory Meeting",
+            icon: "info",
+            message: "Kraken has called a mandatory meeting about this error. Attendance is not optional. The error has already been resolved by Kraken. The meeting is still happening.",
+            button: "Acknowledged"
+        },
+        {
+            title: "Facilities",
+            icon: "warn",
+            message: "The printer on the second floor has failed again. This is the fourth time this quarter. Facilities has requested employees stop speculating about the cause. The cause is known.",
+            button: "OK"
+        },
+        {
+            title: "System Message",
+            icon: "info",
+            message: "This is an automated notification. The soup outside your door is from Bigfoot. This is unrelated to the current error. The soup is emotionally important. Please acknowledge the soup.",
+            button: "Soup Acknowledged"
+        },
+        {
+            title: "Unknown Source",
+            icon: "error",
+            message: "An unclassified entity accessed this system from Pacific Northwest coordinates and resolved an issue through undocumented methods. The issue was not the issue you reported. Do not ask what the issue was.",
+            button: "OK"
+        },
+        {
+            title: "Critical Error",
+            icon: "error",
+            message: "This window cannot be closed. An attempt to close this window has been logged. Chupacabra has been notified. Chupacabra has filed a complaint about the attempt to close this window. Please stand by.",
+            button: "OK"
+        },
+        {
+            title: "Reminder",
+            icon: "info",
+            message: "This is the third time you have clicked OK this session. Clicking OK does not resolve the issue. The issue is being handled. Clicking OK is the issue.",
+            button: "OK"
+        }
+    ];
+
+    /* ── Error icon SVGs ── */
+    const icons = {
+        error: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="15" fill="url(#eg)"/>
+            <path d="M10 10 L22 22" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M22 10 L10 22" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <defs><radialGradient id="eg" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#ff4444"/>
+                <stop offset="100%" stop-color="#880000"/>
+            </radialGradient></defs></svg>`,
+        warn: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 2 L30 28 L2 28 Z" fill="url(#wg)"/>
+            <text x="16" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#000" font-family="Arial">!</text>
+            <defs><radialGradient id="wg" cx="50%" cy="60%" r="70%">
+                <stop offset="0%" stop-color="#ffee44"/>
+                <stop offset="100%" stop-color="#cc8800"/>
+            </radialGradient></defs></svg>`,
+        info: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="15" fill="url(#ig)"/>
+            <text x="16" y="22" text-anchor="middle" font-size="18" font-weight="bold" fill="white" font-family="Arial">i</text>
+            <defs><radialGradient id="ig" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#4488ff"/>
+                <stop offset="100%" stop-color="#000088"/>
+            </radialGradient></defs></svg>`
+    };
+
+    /* ── State ── */
+    let currentIndex = 0;
+    let clickCount = 0;
+    const dialog = document.getElementById('error-dialog');
+    const desktop = document.getElementById('desktop');
+
+    /* ── Position dialog ── */
+    function positionDialog() {
+        const dw = dialog.offsetWidth || 380;
+        const dh = dialog.offsetHeight || 180;
+        const maxX = Math.max(20, desktop.offsetWidth - dw - 20);
+        const maxY = Math.max(20, desktop.offsetHeight - dh - 20);
+        const cx = (desktop.offsetWidth - dw) / 2;
+        const cy = (desktop.offsetHeight - dh) / 2;
+        const jitterX = (Math.random() - 0.5) * Math.min(200, maxX * 0.4);
+        const jitterY = (Math.random() - 0.5) * Math.min(100, maxY * 0.3);
+        dialog.style.left = Math.max(10, Math.min(maxX, cx + jitterX)) + 'px';
+        dialog.style.top  = Math.max(10, Math.min(maxY, cy + jitterY)) + 'px';
+    }
+
+    /* ── Show error ── */
+    function showError(index) {
+        const e = errors[index];
+        document.getElementById('title-text').textContent = e.title;
+        document.getElementById('dialog-text').textContent = e.message;
+        document.getElementById('ok-btn').textContent = e.button;
+        document.getElementById('error-icon').innerHTML = icons[e.icon];
+        document.getElementById('taskbar-title').textContent = 'Tiny Riot Inc. — ' + e.title;
+        positionDialog();
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                dialog.classList.add('visible');
+            });
+        });
+    }
+
+    /* ── Dismiss and cycle ── */
+    function dismiss() {
+        clickCount++;
+        dialog.classList.remove('visible');
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % errors.length;
+            showError(currentIndex);
+        }, 280);
+    }
+
+    /* ── Clock ── */
+    function updateClock() {
+        const now = new Date();
+        let h = now.getHours();
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        document.getElementById('taskbar-clock').textContent = h + ':' + m + ' ' + ampm;
+    }
+    updateClock();
+    setInterval(updateClock, 15000);
+
+    /* ── Init ── */
+    window.addEventListener('load', () => {
+        // Randomize starting error
+        currentIndex = Math.floor(Math.random() * errors.length);
+        showError(currentIndex);
+    });
+</script>
+</body>
+</html>
