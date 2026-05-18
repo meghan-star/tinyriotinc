@@ -6,33 +6,33 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://tinyriotinc.com/directory.html</loc>
+    <loc>https://tinyriotinc.com/directory</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tinyriotinc.com/incidents.html</loc>
+    <loc>https://tinyriotinc.com/incidents</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tinyriotinc.com/jobs.html</loc>
+    <loc>https://tinyriotinc.com/jobs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tinyriotinc.com/handbook.html</loc>
+    <loc>https://tinyriotinc.com/handbook</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://tinyriotinc.com/music.html</loc>
+    <loc>https://tinyriotinc.com/music</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://tinyriotinc.com/quiz.html</loc>
+    <loc>https://tinyriotinc.com/quiz</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
 </urlset>
