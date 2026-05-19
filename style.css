@@ -105,6 +105,21 @@ nav ul li a.active {
     color: #fff;
 }
 
+@media (max-width: 768px) {
+    nav ul {
+        flex-wrap: wrap;
+        padding: 0;
+    }
+    nav ul li a {
+        padding: 8px 12px;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+    }
+    nav ul li:first-child a {
+        border-left: none;
+    }
+}
+
 /* ── BREADCRUMB ── */
 .breadcrumb {
     font-size: 11px;
