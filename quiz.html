@@ -727,6 +727,57 @@
         renderQuestion(0);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    /* ── Preview Mode ── */
+    /* Access via: /quiz?result=bigfoot (or any character key)  */
+    /* Character keys: bigfoot, mothman, nessie, grey, jackalope, chupacabra, rake, jerseydevil, kraken */
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const preview = params.get('result');
+        if (!preview || !characters[preview]) return;
+
+        document.getElementById('quiz-intro').style.display = 'none';
+
+        const char = characters[preview];
+        const now = new Date();
+        const timestamp = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+
+        const avatarHTML = `
+            <div class="result-avatar" id="result-avatar-el" style="background-color:${char.color};">
+                <img src="${char.image}"
+                     alt="${char.name}"
+                     onload="this.parentElement.style.backgroundColor='transparent';"
+                     onerror="this.remove();">
+            </div>`;
+
+        const container = document.getElementById('result-container');
+        container.innerHTML = `
+            <div class="result-header-bar">
+                <span>Assessment Complete &nbsp;·&nbsp; Classification Filed</span>
+                <span>${timestamp}</span>
+            </div>
+            <div class="result-card">
+                <div class="result-employee-header">
+                    ${avatarHTML}
+                    <div class="result-employee-info">
+                        <div class="result-name">${char.name}</div>
+                        <div class="result-title">${char.title}</div>
+                        <div class="result-dept">${char.dept}</div>
+                    </div>
+                </div>
+                <hr class="result-divider">
+                <div class="result-body">${char.result}</div>
+                <div class="result-actions">
+                    <a href="directory.html" class="result-btn-primary">View Employee Profile</a>
+                    <button class="result-btn-secondary" onclick="retakeQuiz()">Take the Assessment</button>
+                </div>
+                <div class="result-classification">
+                    Classification: HR-ASSESS-001 &nbsp;·&nbsp; Result: ${char.name.toUpperCase()} &nbsp;·&nbsp; This result has been added to your file.
+                </div>
+            </div>
+        `;
+        container.style.display = 'block';
+    })();
 </script>
 
 </body>
