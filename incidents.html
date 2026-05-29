@@ -67,6 +67,9 @@
         <strong>POLICY REMINDER:</strong> Incidents should be reported within 48 hours of occurrence. Tiny Riot Inc. acknowledges that several incidents on this log were reported significantly later than 48 hours. HR notes this with resignation.
     </div>
 
+    <!-- FEATURED INCIDENT OF THE WEEK — populated by JS below -->
+    <div id="featured-incident-container" style="margin-top:24px;margin-bottom:8px;"></div>
+
     <div class="incident-list" style="margin-top:24px;">
 
         <!-- INC-0317 -->
@@ -246,6 +249,105 @@
         <a href="https://pin.it/f3776Z0mt" target="_blank" rel="noopener">Pinterest</a>
     </div>
 </footer>
+
+<script>
+(function() {
+    var incidents = [
+        {
+            number: "INC-0317",
+            category: "IT / Infrastructure",
+            status: "Closed",
+            action: "None Possible",
+            summary: "Bigfoot fixed the Wi-Fi. Left no documentation. IT cannot replicate the process. The fix is holding.",
+            footer: "Filed by: IT Department &nbsp;|&nbsp; See also: INC-0318 (follow-up inquiry), closed without resolution &nbsp;|&nbsp; Bigfoot was asked to document the fix and did not respond."
+        },
+        {
+            number: "INC-0442",
+            category: "Kitchen / Equipment",
+            status: "Closed",
+            action: "Policy Issued",
+            summary: "Do not let Chupacabra near the office Keurig.",
+            footer: "Filed by: Facilities &nbsp;|&nbsp; See also: INC-0443, INC-0444 &nbsp;|&nbsp; Chupacabra disputes the framing of this report. HR has noted her dispute. The policy stands."
+        },
+        {
+            number: "INC-0558",
+            category: "Scheduling / Attendance",
+            status: "Closed",
+            action: "None",
+            summary: "Nessie accepted every calendar invite for Q1. Attended none. Decisions were made in her absence. She was subsequently briefed via ripple. She approved.",
+            footer: "Filed by: Operations &nbsp;|&nbsp; This has been classified as a scheduling matter, not a performance matter, at Nessie's request &nbsp;|&nbsp; Outlook permissions have been reviewed. No changes recommended."
+        },
+        {
+            number: "INC-0773",
+            category: "Compliance / Unusual Behavior",
+            status: "Open",
+            action: "Monitoring",
+            summary: "The Rake read the full terms and conditions of the employee benefits agreement. All 47 pages. HR is aware. We are monitoring.",
+            footer: "Filed by: HR &nbsp;|&nbsp; The Rake has not indicated what he intends to do with this information &nbsp;|&nbsp; Legal has been notified &nbsp;|&nbsp; The Rake has asked if you are okay. Please reply."
+        },
+        {
+            number: "INC-0889",
+            category: "Communications / Professional Conduct",
+            status: "Closed",
+            action: "Commendation",
+            summary: "Jersey Devil composed a response to an external client communication. Did not send it. Screamed in the Pine Barrens for approximately 40 minutes. Returned to his desk. Sent a professional response. Client relationship preserved.",
+            footer: "Filed by: External Affairs &nbsp;|&nbsp; Jersey Devil has received a commendation for professionalism &nbsp;|&nbsp; The screaming in the Pine Barrens has been classified as a personal wellness activity and is not billable."
+        },
+        {
+            number: "INC-0991",
+            category: "Communications / Mass Event",
+            status: "Open — Active Investigation",
+            action: "Pending",
+            summary: "A reply-all email chain was initiated and escalated to 847 messages across all company departments over the course of one business day. The incident has been classified as avoidable. The originating email has been identified. The sender has not commented. Investigation is ongoing.",
+            footer: "Filed by: HR &nbsp;|&nbsp; Suspect: [Redacted — pending conclusion of investigation] &nbsp;|&nbsp; Everyone blamed Chupacabra. Chupacabra disputes this. The evidence does not support the Chupacabra theory &nbsp;|&nbsp; Personnel are reminded: do not reply-all."
+        },
+        {
+            number: "INC-1001",
+            category: "Facilities / Break Room",
+            status: "Closed",
+            action: "None",
+            summary: "Snack theft confirmed. Suspect: Chupacabra. Evidence: substantial. Action taken: none. On review, HR determined that the snacks in question had been improperly labeled and that Chupacabra's position, while aggressive, was not without merit.",
+            footer: "Filed by: Facilities &nbsp;|&nbsp; This is the fourth snack-related incident this quarter &nbsp;|&nbsp; Label your items &nbsp;|&nbsp; Chupacabra was right."
+        },
+        {
+            number: "INC-1204",
+            category: "Strategic Foresight / Analytics",
+            status: "Closed",
+            action: "Acknowledged",
+            summary: "Mothman was technically correct again. This has been logged. Personnel are reminded that being technically correct does not require announcement. Mothman has acknowledged this note. He already knew.",
+            footer: "Filed by: Strategic Foresight &nbsp;|&nbsp; This is the fourth such incident this year &nbsp;|&nbsp; A formal acknowledgment process for Mothman's predictions is under development &nbsp;|&nbsp; He already knows how it turns out."
+        }
+    ];
+
+    var weekNumber = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
+    var featured = incidents[weekNumber % incidents.length];
+
+    var isOpen = featured.status.indexOf('Open') !== -1;
+    var statusColor = isOpen ? '#7a1a1a' : '#1a3a1a';
+    var statusStyle = isOpen ? 'color:#7a1a1a;font-weight:bold;' : '';
+
+    var html = '<div style="border:2px solid #2c2c2c;background:#f4f0e8;padding:0;margin-bottom:8px;">'
+        + '<div style="background:#2c2c2c;color:#f4f0e8;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:7px 14px;">Incident of the Week — Auto-Rotates Weekly</div>'
+        + '<div class="incident-report" style="border:none;margin:0;">'
+        + '<div class="incident-header">'
+        + '<div class="incident-number">' + featured.number + '</div>'
+        + '<div><div class="incident-meta-block"><strong>Category</strong>' + featured.category + '</div></div>'
+        + '<div class="incident-status-block">'
+        + '<div class="incident-meta-block"><strong>Status</strong><span style="' + statusStyle + '">' + featured.status + '</span></div>'
+        + '<div class="incident-meta-block"><strong>Action Taken</strong>' + featured.action + '</div>'
+        + '</div>'
+        + '</div>'
+        + '<div class="incident-body">'
+        + '<div class="incident-summary-label">Summary</div>'
+        + '<div class="incident-summary">' + featured.summary + '</div>'
+        + '<div class="incident-footer">' + featured.footer + '</div>'
+        + '</div>'
+        + '</div>'
+        + '</div>';
+
+    document.getElementById('featured-incident-container').innerHTML = html;
+})();
+</script>
 
 </body>
 </html>
